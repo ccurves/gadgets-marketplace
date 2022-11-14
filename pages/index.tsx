@@ -4,13 +4,21 @@ import Head from "next/head";
 import Image from "next/image";
 import Header from "../components/Header/Header";
 import Hero from "../components/Hero/Hero";
-import { fetchCategories } from "../utils/fetchFunctions";
+import ProductCard from "../components/ProductCard/ProductCard";
+import { fetchCategories, fetchProducts } from "../utils/fetchFunctions";
 
 type Props = {
   categories: Category[];
+  products: Product[];
 };
 
-const Home: NextPage<Props> = ({ categories }) => {
+const Home: NextPage<Props> = ({ categories, products }) => {
+  console.log(products);
+  const showProducts = (category: number) => {
+    return products
+      .filter((product) => product.category._ref === categories[category]._id)
+      .map((product) => <ProductCard product={product} key={product._id} />);
+  };
   return (
     <div className="">
       <Head>
@@ -31,7 +39,7 @@ const Home: NextPage<Props> = ({ categories }) => {
             New Promos
           </h1>
           <Tab.Group>
-            <Tab.List className="flex justify-center">
+            <Tab.List className="flex  justify-center">
               {categories.map((category) => (
                 <Tab
                   key={category._id}
@@ -48,12 +56,12 @@ const Home: NextPage<Props> = ({ categories }) => {
                 </Tab>
               ))}
             </Tab.List>
-            {/* <Tab.Panels className="mx-auto max-w-fit pt-10 pb-24 sm:px-4">
+            <Tab.Panels className="mx-auto max-w-fit pt-10 pb-24 sm:px-4">
               <Tab.Panel className="tabPanel">{showProducts(0)}</Tab.Panel>
               <Tab.Panel className="tabPanel">{showProducts(1)}</Tab.Panel>
               <Tab.Panel className="tabPanel">{showProducts(2)}</Tab.Panel>
               <Tab.Panel className="tabPanel">{showProducts(3)}</Tab.Panel>
-            </Tab.Panels> */}
+            </Tab.Panels>
           </Tab.Group>
         </div>
       </section>
@@ -65,10 +73,12 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const categories = await fetchCategories();
+  const products = await fetchProducts();
 
   return {
     props: {
       categories,
+      products,
     },
   };
 };
