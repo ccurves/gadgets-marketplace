@@ -8,11 +8,13 @@
   "dependencies": {
     "@headlessui/react": "^1.7.4",
     "@portabletext/react": "^2.0.0",
+    "@reduxjs/toolkit": "^1.9.0",
     "@sanity/image-url": "^1.0.1",
     "next": "latest",
     "next-sanity": "^1.0.9",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-redux": "^8.0.5"
   },
   "devDependencies": {
     "@heroicons/react": "^2.0.13",
