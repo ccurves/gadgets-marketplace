@@ -2,6 +2,7 @@ import { Tab } from "@headlessui/react";
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Basket from "../components/Basket/Basket";
 import Header from "../components/Header/Header";
 import Hero from "../components/Hero/Hero";
 import ProductCard from "../components/ProductCard/ProductCard";
@@ -13,7 +14,6 @@ type Props = {
 };
 
 const Home: NextPage<Props> = ({ categories, products }) => {
-  console.log(products);
   const showProducts = (category: number) => {
     return products
       .filter((product) => product.category._ref === categories[category]._id)
@@ -27,6 +27,7 @@ const Home: NextPage<Props> = ({ categories, products }) => {
       </Head>
 
       <Header />
+      <Basket />
       <main className="relative h-[200vh] bg-[#E7ECEE]">
         <Hero />
       </main>
