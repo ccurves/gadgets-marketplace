@@ -8,8 +8,6 @@ type Props = {};
 
 const Basket = (props: Props) => {
   const items = useSelector(selectCartItems);
-  const [stateItems, setStateItems] = useState(items);
-  useEffect(() => setStateItems(items), []);
 
   const itemsTotal = useSelector(selectCartItemsTotal);
 
