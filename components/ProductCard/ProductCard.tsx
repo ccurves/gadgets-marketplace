@@ -17,7 +17,6 @@ const ProductCard = ({ product }: Props) => {
     dispatch(addToCart(product));
     toast.success(`${product.title} added to basket`, {
       position: "bottom-center",
-      // className: "bg text-white",
       style: {
         background: "#35383c",
         color: "#fff",
