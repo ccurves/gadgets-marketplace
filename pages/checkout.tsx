@@ -57,6 +57,7 @@ const Checkout = (props: Props) => {
     // error, display the localized error message to your customer
     // using `error.message`.
     console.warn(error.message);
+
     setLoading(false);
   };
 
@@ -149,10 +150,10 @@ const Checkout = (props: Props) => {
                     </h4>
                     <Button
                       noIcon
-                      // loading={loading}
+                      loading={loading}
                       title="Check Out"
                       width="w-full"
-                      // onClick={createCheckoutSession}
+                      onClick={createCheckoutSession}
                     />
                   </div>
                 </div>
