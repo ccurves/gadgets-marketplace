@@ -9,6 +9,8 @@ import Header from "../components/Header/Header";
 import { selectCartItems, selectCartItemsTotal } from "../redux/cartSlice";
 import Currency from "react-currency-formatter";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { fetchPostJSON } from "../utils/fetchFunctions";
+import Stripe from "@stripe/stripe-js";
 
 type Props = {};
 
@@ -19,6 +21,7 @@ const Checkout = (props: Props) => {
   const [groupedItemsInCart, setGroupedItemsInCart] = useState(
     {} as { [key: string]: Product[] }
   );
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const groupedItems = items.reduce((results, item) => {
@@ -28,6 +31,16 @@ const Checkout = (props: Props) => {
 
     setGroupedItemsInCart(groupedItems);
   }, [items]);
+
+  const createCheckoutSession = async () => {
+    setLoading(true);
+
+    const checkoutSession: Stripe.Checkout.Session = await fetchPostJSON(
+      "/api/checkout_sessions",
+      { amount: input.customDonation }
+    );
+  };
+
   return (
     <div className="min-h-screen overflow-hidden bg-[#e7ecee]">
       {" "}
