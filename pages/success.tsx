@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 
-const sucess = () => {
+const success = () => {
   const router = useRouter();
   const { session_id } = router.query;
   return (
@@ -79,4 +79,4 @@ const sucess = () => {
   );
 };
 
-export default sucess;
+export default success;
