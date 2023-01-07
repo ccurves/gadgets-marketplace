@@ -3,11 +3,22 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
+import Button from "../components/Button/Button";
 
 const success = () => {
   const router = useRouter();
   const { session_id } = router.query;
+  const [mounted, setMounted] = useState(false);
+  const [showOrderSummary, setShowOrderSummary] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // showOrderSummary always true for desktop but only conditionally true for mobile
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1024px)" });
   return (
     <div>
       <Head>
@@ -69,9 +80,22 @@ const success = () => {
               <p>CCR0197493</p>
             </div>
           </div>
-          <div>
+          <div className="my-4 mx-4 space-y-2 rounded-md border border-gray-300 p-4 lg:ml-14">
             <p>Order updates</p>
-            <p>You'll get shipping and delivery updates by email and text</p>
+            <p className="text-sm text-gray-600">
+              You’ll get shipping and delivery updates by email and text.
+            </p>
+          </div>
+          <div className="mx-4 flex flex-col items-center justify-between text-sm lg:ml-14 lg:flex-row">
+            <p className="hidden lg:inline">Need help? Contact us</p>
+            {mounted && (
+              <Button
+                title="Continue Shopping"
+                onClick={() => router.push("/")}
+                width={isTabletOrMobile ? "w-full" : undefined}
+                padding="py-4"
+              />
+            )}
           </div>
         </section>
       </main>
