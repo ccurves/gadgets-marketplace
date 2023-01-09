@@ -8,13 +8,15 @@ import {
 } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import { selectCartItems } from "../../redux/cartSlice";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { toast } from "react-hot-toast";
 
 type Props = {};
 
 const Header = (props: Props) => {
-  const session = false;
-
+  const { data: session } = useSession();
   const items = useSelector(selectCartItems);
+
   return (
     <header className="sticky top-0 z-30 flex w-full items-center justify-between bg-[#e7ecee] p-4">
       <div className="flex items-center justify-center md:w-1/5">
@@ -54,20 +56,17 @@ const Header = (props: Props) => {
         {session ? (
           <Image
             src={
-              // session.user?.image ||
+              session.user?.image ||
               "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
             }
             alt=""
             className="cursor-pointer rounded-full"
             width={34}
             height={34}
-            // onClick={() => signOut()}
+            onClick={() => signOut()}
           />
         ) : (
-          <UserIcon
-            className="headerIcon"
-            // onClick={() => signIn()}
-          />
+          <UserIcon className="headerIcon" onClick={() => signIn()} />
         )}
       </div>
     </header>

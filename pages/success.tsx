@@ -5,6 +5,7 @@ import {
   ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
 import { GetServerSideProps } from "next";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,11 +21,11 @@ interface Props {
 }
 
 const success = ({ products }: Props) => {
-  console.log(products);
   const router = useRouter();
   const { session_id } = router.query;
   const [mounted, setMounted] = useState(false);
   const [showOrderSummary, setShowOrderSummary] = useState(false);
+  const { data: session } = useSession();
 
   const subtotal = products.reduce(
     (acc, product) => acc + product.price.unit_amount / 100,
@@ -85,7 +86,7 @@ const success = ({ products }: Props) => {
               </p>
               <h4 className="text-lg">
                 Thank you
-                {/* {session ? session_id.user?.name?.split("")[0]: "Guest"} */}
+                {session ? session.user?.name?.split(" ")[0] : "Guest"}
               </h4>
             </div>
           </div>
@@ -224,6 +225,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
 }) => {
   const sessionId = query.session_id as string;
   const products = await fetchLineItems(sessionId);
+
+  console.log(products);
 
   return {
     props: {
