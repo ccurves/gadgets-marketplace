@@ -223,9 +223,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   query,
 }) => {
   const sessionId = query.session_id as string;
-  console.log(sessionId);
   const products = await fetchLineItems(sessionId);
-  console.log(products);
 
   return {
     props: {
