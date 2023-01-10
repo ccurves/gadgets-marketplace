@@ -63,10 +63,10 @@ const success = ({ products }: Props) => {
         </Link>
       </header>
 
-      <main>
-        <section className="order-2 mx-auto max-w-xl pb-12 lg:mx-0 lg:max-w-none lg:pr-16 lg:pt-16 xl:pl-16 2xl:pl-44">
+      <main className="grid grid-cols-1 lg:grid-cols-9">
+        <section className="order-2 mx-auto max-w-xl pb-12 lg:col-span-5 lg:mx-0 lg:max-w-none lg:pr-16 lg:pt-16 xl:pl-16 2xl:pl-44">
           <Link href="/">
-            <div className="relative ml-4 hidden h-16 w-8 cursor-pointer transition lg:inline-flex">
+            <div className="relative ml-14 hidden h-24 w-12 cursor-pointer transition lg:inline-flex">
               <Image
                 src="https://rb.gy/vsvv2o"
                 layout="fill"
@@ -82,29 +82,31 @@ const success = ({ products }: Props) => {
             </div>
             <div>
               <p className="text-sm text-gray-600">
-                Order #{session_id?.slice(-5)}{" "}
+                Order #{session_id?.slice(-5)}
               </p>
               <h4 className="text-lg">
-                Thank you
+                Thank you{" "}
                 {session ? session.user?.name?.split(" ")[0] : "Guest"}
               </h4>
             </div>
           </div>
+
           <div className="mx-4 divide-y divide-gray-300 rounded-md border border-gray-300 p-4 lg:ml-14">
             <div className="space-y-2 pb-3">
               <p>Your order is confirmed</p>
               <p className="text-sm text-gray-600">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed
-                quod assumenda sequi iusto accusantium dolores?
+                We’ve accepted your order, and we’re getting it ready. Come back
+                to this page for updates on your shipment status.
               </p>
             </div>
             <div className="pt-3 text-sm">
               <p className="font-medium text-gray-600">
-                Order tracking number:
+                Other tracking number:
               </p>
-              <p>CCR0197493</p>
+              <p>CNB21441622</p>
             </div>
           </div>
+
           <div className="my-4 mx-4 space-y-2 rounded-md border border-gray-300 p-4 lg:ml-14">
             <p>Order updates</p>
             <p className="text-sm text-gray-600">
@@ -224,9 +226,10 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   query,
 }) => {
   const sessionId = query.session_id as string;
+
   const products = await fetchLineItems(sessionId);
 
-  console.log(products);
+  // console.log(products);
 
   return {
     props: {

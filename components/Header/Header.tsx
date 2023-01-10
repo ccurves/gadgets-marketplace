@@ -16,6 +16,9 @@ type Props = {};
 const Header = (props: Props) => {
   const { data: session } = useSession();
   const items = useSelector(selectCartItems);
+  console.log(session);
+
+  const handleAuth = () => {};
 
   return (
     <header className="sticky top-0 z-30 flex w-full items-center justify-between bg-[#e7ecee] p-4">
@@ -63,10 +66,23 @@ const Header = (props: Props) => {
             className="cursor-pointer rounded-full"
             width={34}
             height={34}
-            onClick={() => signOut()}
+            onClick={() => {
+              signOut();
+              toast("You've been logged out");
+            }}
           />
         ) : (
-          <UserIcon className="headerIcon" onClick={() => signIn()} />
+          <UserIcon
+            className="headerIcon"
+            onClick={() => {
+              signIn();
+              // toast(
+              //   `Welcome ${
+              //     session ? session.user?.name?.split(" ")[0] : "Guest"
+              //   }`
+              // );
+            }}
+          />
         )}
       </div>
     </header>
