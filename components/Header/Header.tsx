@@ -76,11 +76,6 @@ const Header = (props: Props) => {
             className="headerIcon"
             onClick={() => {
               signIn();
-              // toast(
-              //   `Welcome ${
-              //     session ? session.user?.name?.split(" ")[0] : "Guest"
-              //   }`
-              // );
             }}
           />
         )}
